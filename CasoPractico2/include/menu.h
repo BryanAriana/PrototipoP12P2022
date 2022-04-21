@@ -16,11 +16,13 @@ class menu
         void menuCine();
         void menuCliente();
         void catalogos();
+        void reportes();
         void insert();
 		void display();
 		void modify();
 		void search();
 		void delet();
+		void displayReporte();
 		void insertSala();
 		void displaySala();
 		void modifySala();
