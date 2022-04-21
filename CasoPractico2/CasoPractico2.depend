@@ -1,6 +1,5 @@
 # depslib dependency file v1.0
-1650561734 source:c:\users\bryan\clonacion\prototipop12p2022\casopractico2\src\menu.cpp
-	"menu.h"
+1650569377 source:c:\users\bryan\clonacion\prototipop12p2022\casopractico2\src\menu.cpp
 	<iostream>
 	<istream>
 	<fstream>
@@ -9,8 +8,9 @@
 	<cstdlib>
 	<conio.h>
 	<iomanip>
+	"menu.h"
 
-1650563394 c:\users\bryan\clonacion\prototipop12p2022\casopractico2\include\menu.h
+1650569377 c:\users\bryan\clonacion\prototipop12p2022\casopractico2\include\menu.h
 
 1650562951 source:c:\users\bryan\clonacion\prototipop12p2022\casopractico2\main.cpp
 	<iostream>
