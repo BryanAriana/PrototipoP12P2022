@@ -99,13 +99,12 @@ void menu::menuGen()
     {
         system ("cls");
 
-        cout << "\t\t\t *********************************************"<<endl;
+        cout << "\t\t\t ************************************************************************"<<endl;
         cout << "\t\t\t    | Sistema del Cine - Bryan Alejandro Ariana Juarez 9959-21-2832  |"<<endl;
-        cout << "\t\t\t *********************************************"<<endl;
+        cout << "\t\t\t ************************************************************************"<<endl;
         cout << "\t\t\t  1. Catalogos"<<endl;
-        cout << "\t\t\t  2. Procesos"<<endl;
-        cout << "\t\t\t  3. Informes"<<endl;
-        cout << "\t\t\t  4. Salir"<<endl;
+        cout << "\t\t\t  2. Reportes"<<endl;
+        cout << "\t\t\t  3. Salir"<<endl;
 
         cout << "\t\t\t *********************************************"<<endl;
         cout << "\t\t\t Opcion a escoger : [1/2/3/4]"<<endl;
@@ -119,11 +118,11 @@ void menu::menuGen()
         catalogos();
 		break;
 	case 2:
+	    reportes();
 
 		break;
+
 	case 3:
-		break;
-	case 4:
 		exit(0);
 	default:
 		cout << "\t\t\t Opcion invalida...Por favor prueba otra vez..";
@@ -1101,4 +1100,53 @@ void menu::deletClientes()
 		remove("registroDeClientes.txt");
 		rename("registro.txt","registroDeClientes.txt");
 	}
+}
+void menu::reportes()
+{
+    int choice;
+    char s;
+    do
+    {
+
+
+    system ("cls");
+
+        cout << "\t\t\t *********************************************"<<endl;
+        cout << "\t\t\t      | Reportes |"<<endl;
+        cout << "\t\t\t *********************************************"<<endl;
+        cout << "\t\t\t  1. Reporte de Peliculas"<<endl;
+        cout << "\t\t\t  2. Reporte de Salas"<<endl;
+        cout << "\t\t\t  3. Reporte de Cines"<<endl;
+        cout << "\t\t\t  4. Reporte de Clientes"<<endl;
+        cout << "\t\t\t  5. Salir"<<endl;
+
+        cout << "\t\t\t *********************************************"<<endl;
+        cout << "\t\t\t Opcion a escoger : [1/2/3/4/5]"<<endl;
+        cout << "\t\t\t *********************************************"<<endl;
+        cout << "\t\t\t Selecciona tu opcion: "<<endl;
+        cin>>choice;
+
+        switch(choice)
+        {
+    case 1:
+        display();
+		break;
+    case 2:
+        displaySala();
+		break;
+	case 3:
+	    displayCine();
+		break;
+    case 4:
+        displayClientes();
+
+		break;
+	case 5:
+		menuGen();
+	default:
+		cout << "\t\t\t Opcion invalida...Por favor prueba otra vez..";
+	}
+	getch();
+    }while(choice!= 7);
+
 }
