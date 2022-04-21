@@ -146,13 +146,12 @@ void menu::catalogos()
         cout << "\t\t\t *********************************************"<<endl;
         cout << "\t\t\t  1. Peliculas"<<endl;
         cout << "\t\t\t  2. Salas"<<endl;
-        cout << "\t\t\t  3. Asientos"<<endl;
-        cout << "\t\t\t  4. Cines"<<endl;
-        cout << "\t\t\t  5. Clientes"<<endl;
-        cout << "\t\t\t  6. Salir"<<endl;
+        cout << "\t\t\t  3. Cines"<<endl;
+        cout << "\t\t\t  4. Clientes"<<endl;
+        cout << "\t\t\t  5. Salir"<<endl;
 
         cout << "\t\t\t *********************************************"<<endl;
-        cout << "\t\t\t Opcion a escoger : [1/2/3/4/5/6]"<<endl;
+        cout << "\t\t\t Opcion a escoger : [1/2/3/4/5]"<<endl;
         cout << "\t\t\t *********************************************"<<endl;
         cout << "\t\t\t Selecciona tu opcion: "<<endl;
         cin>>choice;
@@ -166,18 +165,13 @@ void menu::catalogos()
         menuSalas();
 		break;
 	case 3:
-
+	    menuCine();
 		break;
-	case 4:
+    case 4:
+        menuCliente();
 
 		break;
 	case 5:
-
-		break;
-    case 6:
-
-        break;
-	case 7:
 		exit(0);
 	default:
 		cout << "\t\t\t Opcion invalida...Por favor prueba otra vez..";
@@ -654,5 +648,457 @@ void menu::deletSala()
 		file.close();
 		remove("registroDeSalas.txt");
 		rename("registro.txt","registroDeSalas.txt");
+	}
+}
+void menu::menuCine()
+{
+    int choice;
+	char x;
+	do
+    {
+	system("cls");
+
+	cout<<"\t\t\t----------------------------------------"<<endl;
+	cout<<"\t\t\t |   Menu Cines  |"<<endl;
+	cout<<"\t\t\t----------------------------------------"<<endl;
+	cout<<"\t\t\t 1. Ingresar Cine"<<endl;
+	cout<<"\t\t\t 2. Despliegar Cine"<<endl;
+	cout<<"\t\t\t 3. Modificar Cine"<<endl;
+	cout<<"\t\t\t 4. Buscar Cine"<<endl;
+	cout<<"\t\t\t 5. Borrar Cine"<<endl;
+	cout<<"\t\t\t 6. salir"<<endl;
+
+	cout<<"\t\t\t-------------------------------"<<endl;
+	cout<<"\t\t\tOpcion a escoger:[1/2/3/4/5/6]"<<endl;
+	cout<<"\t\t\t-------------------------------"<<endl;
+	cout<<"Ingresa tu Opcion: ";
+    cin>>choice;
+
+    switch(choice)
+    {
+    case 1:
+    	do
+    	{
+    		insertCine();
+    		cout<<"\n\t\t\t Agrega otra persona(Y,N): ";
+    		cin>>x;
+		}while(x=='y'||x=='Y');
+		break;
+	case 2:
+		displayCine();
+		break;
+	case 3:
+		modifyCine();
+		break;
+	case 4:
+		searchCine();
+		break;
+	case 5:
+		deletCine();
+		break;
+	case 6:
+		menuGen();
+	default:
+		cout<<"\n\t\t\t Opcion invalida...";
+	}
+	getch();
+    }while(choice!= 6);
+}
+void menu::insertCine()
+{
+	system("cls");
+	fstream file;
+	cout<<"\n------------------------------------------------------------------------------------------------------------------------";
+	cout<<"\n-------------------------------------------------Agregar informacion de Cine ---------------------------------------------"<<endl;
+	cout<<"\t\t\tIngresa id del cine         : ";
+	cin>>idC;
+	cout<<"\t\t\tIngresa nombre del Cine         : ";
+	cin>>nombreC;
+	cout<<"\t\t\tIngresa direccion del cine      : ";
+	cin>>direccion;
+    file.open("registroDeCines.txt", ios::app | ios::out);
+	file<<std::left<<std::setw(15)<< idC <<std::setw(15)<< nombreC <<std::left<<std::setw(15)<< direccion << "\n";
+	file.close();
+}
+void menu::displayCine()
+{
+	system("cls");
+	fstream file;
+	int total=0;
+	cout<<"\n-------------------------Tabla de Informacion de Cines -------------------------"<<endl;
+	file.open("registroDeCines.txt",ios::in);
+	if(!file)
+	{
+		cout<<"\n\t\t\tNo hay información...";
+		file.close();
+	}
+	else
+	{
+		file >> idC >> nombreC >> direccion;
+		while(!file.eof())
+		{
+			total++;
+			cout<<"\n\n\t\t\t id del cine: "<<idC<<endl;
+			cout<<"\t\t\t Nombre del cine: "<<nombreC<<endl;
+			cout<<"\t\t\t Direccion del cine: "<<direccion<<endl;
+			file >> idC>> nombreC >> direccion;
+		}
+		if(total==0)
+		{
+			cout<<"\n\t\t\tNo hay informacion...";
+		}
+	}
+	file.close();
+}
+void menu::modifyCine()
+{
+	system("cls");
+	fstream file,file1;
+	string participant_idC;
+	int found=0;
+	cout<<"\n-------------------------Modificacion de Informacion de Cines-------------------------"<<endl;
+	file.open("registroDeCines.txt",ios::in);
+	if(!file)
+	{
+		cout<<"\n\t\t\tNo hay informacion..,";
+		file.close();
+	}
+	else
+	{
+		cout<<"\n Ingrese Id de los cines que quiere modificar: ";
+		cin>>participant_idC;
+		file1.open("registro.txt",ios::app | ios::out);
+		file >> idC >> nombreC >> direccion;
+		while(!file.eof())
+		{
+			if(participant_idC!=idC)
+			{
+			file<<std::left<<std::setw(15)<< idC <<std::setw(15)<< nombreC <<std::left<<std::setw(15)<< direccion << "\n";
+			}
+			else
+			{
+				cout<<"\t\t\tIngrese Id del cine: ";
+				cin>>idC;
+				cout<<"\t\t\tIngrese Nombre del Cine: ";
+				cin>>nombreC;
+				cout<<"\t\t\tIngrese direccion del cine: ";
+				cin>>direccion;
+				file1<<std::left<<std::setw(15)<< idC <<std::setw(15)<< nombreC <<std::left<<std::setw(15)<< direccion<< "\n";
+				found++;
+			}
+			file >> idC >> nombreC >>  direccion;
+
+		}
+		file1.close();
+		file.close();
+		remove("registroDeCines.txt");
+		rename("registro.txt","registroDeCines.txt");
+	}
+}
+
+void menu::searchCine()
+{
+	system("cls");
+	fstream file;
+	int found=0;
+	file.open("registroDeCines.txt",ios::in);
+	if(!file)
+	{
+		cout<<"\n-------------------------Datos del cine buscado------------------------"<<endl;
+		cout<<"\n\t\t\tNo hay informacion...";
+	}
+	else
+	{
+		string participant_idC;
+		cout<<"\n-------------------------Datos del cine buscado------------------------"<<endl;
+		cout<<"\nIngrese Id del cine que quiere buscar: ";
+		cin>>participant_idC;
+		file >> idC >> nombreC >>  direccion;
+		while(!file.eof())
+		{
+			if(participant_idC==idC)
+			{
+				cout<<"\n\n\t\t\t Id del Cine: "<<idC<<endl;
+				cout<<"\t\t\t Nombre del Cine: "<<nombreC<<endl;
+				cout<<"\t\t\t Direccion del cine: "<<direccion<<endl;
+				found++;
+			}
+			file >> idC >> nombreC >>  direccion;
+		}
+		if(found==0)
+		{
+			cout<<"\n\t\t\t Sala no encontrada...";
+		}
+		file.close();
+	}
+}
+
+
+void menu::deletCine()
+{
+	system("cls");
+	fstream file,file1;
+	string participant_idC;
+	int found=0;
+	cout<<"\n-------------------------Informacion del Cine a Borrar-------------------------"<<endl;
+	file.open("registroDeCines.txt",ios::in);
+	if(!file)
+	{
+		cout<<"\n\t\t\tNo hay informacion...";
+		file.close();
+	}
+	else
+	{
+		cout<<"\n Ingrese el Id del cine que quiere borrar: ";
+		cin>>participant_idC;
+		file1.open("registro.txt",ios::app | ios::out);
+		file >> idC >> nombreC >> direccion;
+		while(!file.eof())
+		{
+			if(participant_idC!= idC)
+			{
+				file1<<std::left<<std::setw(15)<< idC <<std::setw(15)<< nombreC <<std::left<<std::setw(15)<< direccion<< "\n";
+			}
+			else
+			{
+				found++;
+				cout << "\n\t\t\tBorrado de informacion exitoso";
+			}
+			file >> idC >> nombreC  >>  direccion;
+		}
+		if(found==0)
+		{
+			cout<<"\n\t\t\t Id del cine no encontrado...";
+		}
+		file1.close();
+		file.close();
+		remove("registroDeCines.txt");
+		rename("registro.txt","registroDeCines.txt");
+	}
+}
+void menu::menuCliente()
+{
+    int choice;
+	char x;
+	do
+    {
+	system("cls");
+
+	cout<<"\t\t\t----------------------------------------"<<endl;
+	cout<<"\t\t\t |   Menu Clientes  |"<<endl;
+	cout<<"\t\t\t----------------------------------------"<<endl;
+	cout<<"\t\t\t 1. Ingresar Cliente"<<endl;
+	cout<<"\t\t\t 2. Despliegar Clientes"<<endl;
+	cout<<"\t\t\t 3. Modificar Cliente"<<endl;
+	cout<<"\t\t\t 4. Buscar Cliente"<<endl;
+	cout<<"\t\t\t 5. Borrar Cliente"<<endl;
+	cout<<"\t\t\t 6. salir"<<endl;
+
+	cout<<"\t\t\t-------------------------------"<<endl;
+	cout<<"\t\t\tOpcion a escoger:[1/2/3/4/5/6]"<<endl;
+	cout<<"\t\t\t-------------------------------"<<endl;
+	cout<<"Ingresa tu Opcion: ";
+    cin>>choice;
+
+    switch(choice)
+    {
+    case 1:
+    	do
+    	{
+    		insertClientes();
+    		cout<<"\n\t\t\t Agrega otra persona(Y,N): ";
+    		cin>>x;
+		}while(x=='y'||x=='Y');
+		break;
+	case 2:
+		displayClientes();
+		break;
+	case 3:
+		modifyClientes();
+		break;
+	case 4:
+		searchClientes();
+		break;
+	case 5:
+		deletClientes();
+		break;
+	case 6:
+		menuGen();
+	default:
+		cout<<"\n\t\t\t Opcion invalida...";
+	}
+	getch();
+    }while(choice!= 6);
+}
+void menu::insertClientes()
+{
+	system("cls");
+	fstream file;
+	cout<<"\n------------------------------------------------------------------------------------------------------------------------";
+	cout<<"\n-------------------------------------------------Agregar informacion del Cliente ---------------------------------------------"<<endl;
+	cout<<"\t\t\tIngresa id del cliente         : ";
+	cin>>idCL;
+	cout<<"\t\t\tIngresa nombre del Cliente         : ";
+	cin>>nombreCL;
+	cout<<"\t\t\tIngresa NIT del cliente      : ";
+	cin>>nit;
+    file.open("registroDeClientes.txt", ios::app | ios::out);
+	file<<std::left<<std::setw(15)<< idCL <<std::setw(15)<< nombreCL <<std::left<<std::setw(15)<< nit << "\n";
+	file.close();
+}
+void menu::displayClientes()
+{
+	system("cls");
+	fstream file;
+	int total=0;
+	cout<<"\n-------------------------Tabla de Informacion de Clientes -------------------------"<<endl;
+	file.open("registroDeClientes.txt",ios::in);
+	if(!file)
+	{
+		cout<<"\n\t\t\tNo hay información...";
+		file.close();
+	}
+	else
+	{
+		file >> idCL >> nombreCL >> nit;
+		while(!file.eof())
+		{
+			total++;
+			cout<<"\n\n\t\t\t id del cliente: "<<idCL<<endl;
+			cout<<"\t\t\t Nombre del cliente: "<<nombreCL<<endl;
+			cout<<"\t\t\t NIT del cine: "<<nit<<endl;
+			file >> idCL>> nombreCL >> nit;
+		}
+		if(total==0)
+		{
+			cout<<"\n\t\t\tNo hay informacion...";
+		}
+	}
+	file.close();
+}
+void menu::modifyClientes()
+{
+	system("cls");
+	fstream file,file1;
+	string participant_idCL;
+	int found=0;
+	cout<<"\n-------------------------Modificacion de Informacion de Clientes-------------------------"<<endl;
+	file.open("registroDeClientes.txt",ios::in);
+	if(!file)
+	{
+		cout<<"\n\t\t\tNo hay informacion..,";
+		file.close();
+	}
+	else
+	{
+		cout<<"\n Ingrese Id de los clientes que quiere modificar: ";
+		cin>>participant_idCL;
+		file1.open("registro.txt",ios::app | ios::out);
+		file >> idCL >> nombreCL >> nit;
+		while(!file.eof())
+		{
+			if(participant_idCL!=idCL)
+			{
+			file<<std::left<<std::setw(15)<< idCL <<std::setw(15)<< nombreCL <<std::left<<std::setw(15)<< nit << "\n";
+			}
+			else
+			{
+				cout<<"\t\t\tIngrese Id del cliente: ";
+				cin>>idCL;
+				cout<<"\t\t\tIngrese Nombre del Cliente: ";
+				cin>>nombreCL;
+				cout<<"\t\t\tIngrese direccion del cliente: ";
+				cin>>nit;
+				file1<<std::left<<std::setw(15)<< idCL <<std::setw(15)<< nombreCL <<std::left<<std::setw(15)<< nit<< "\n";
+				found++;
+			}
+			file >> idCL >> nombreCL >>  nit;
+
+		}
+		file1.close();
+		file.close();
+		remove("registroDeClientes.txt");
+		rename("registro.txt","registroDeClientes.txt");
+	}
+}
+
+void menu::searchClientes()
+{
+	system("cls");
+	fstream file;
+	int found=0;
+	file.open("registroDeClientes.txt",ios::in);
+	if(!file)
+	{
+		cout<<"\n-------------------------Datos del cliente buscado------------------------"<<endl;
+		cout<<"\n\t\t\tNo hay informacion...";
+	}
+	else
+	{
+		string participant_idCL;
+		cout<<"\n-------------------------Datos del cliente buscado------------------------"<<endl;
+		cout<<"\nIngrese Id del cliente que quiere buscar: ";
+		cin>>participant_idCL;
+		file >> idCL >> nombreCL >>  nit;
+		while(!file.eof())
+		{
+			if(participant_idCL==idCL)
+			{
+				cout<<"\n\n\t\t\t Id del Cliente: "<<idCL<<endl;
+				cout<<"\t\t\t Nombre del Cliente: "<<nombreCL<<endl;
+				cout<<"\t\t\t nit del cliente: "<<nit<<endl;
+				found++;
+			}
+			file >> idCL >> nombreCL >>  nit;
+		}
+		if(found==0)
+		{
+			cout<<"\n\t\t\t Sala no encontrada...";
+		}
+		file.close();
+	}
+}
+
+
+void menu::deletClientes()
+{
+	system("cls");
+	fstream file,file1;
+	string participant_idCL;
+	int found=0;
+	cout<<"\n-------------------------Informacion del Clinte a Borrar-------------------------"<<endl;
+	file.open("registroDeCliente.txt",ios::in);
+	if(!file)
+	{
+		cout<<"\n\t\t\tNo hay informacion...";
+		file.close();
+	}
+	else
+	{
+		cout<<"\n Ingrese el Id del cliente que quiere borrar: ";
+		cin>>participant_idCL;
+		file1.open("registro.txt",ios::app | ios::out);
+		file >> idCL >> nombreCL >> nit;
+		while(!file.eof())
+		{
+			if(participant_idCL!= idCL)
+			{
+				file1<<std::left<<std::setw(15)<< idCL <<std::setw(15)<< nombreCL <<std::left<<std::setw(15)<< nit<< "\n";
+			}
+			else
+			{
+				found++;
+				cout << "\n\t\t\tBorrado de informacion exitoso";
+			}
+			file >> idCL >> nombreCL  >>  nit;
+		}
+		if(found==0)
+		{
+			cout<<"\n\t\t\t Id del cliente no encontrado...";
+		}
+		file1.close();
+		file.close();
+		remove("registroDeClientes.txt");
+		rename("registro.txt","registroDeClientes.txt");
 	}
 }

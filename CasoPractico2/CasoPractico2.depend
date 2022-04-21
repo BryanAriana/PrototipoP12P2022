@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1650569377 source:c:\users\bryan\clonacion\prototipop12p2022\casopractico2\src\menu.cpp
+1650571286 source:c:\users\bryan\clonacion\prototipop12p2022\casopractico2\src\menu.cpp
 	<iostream>
 	<istream>
 	<fstream>
@@ -10,7 +10,7 @@
 	<iomanip>
 	"menu.h"
 
-1650569377 c:\users\bryan\clonacion\prototipop12p2022\casopractico2\include\menu.h
+1650572093 c:\users\bryan\clonacion\prototipop12p2022\casopractico2\include\menu.h
 
 1650562951 source:c:\users\bryan\clonacion\prototipop12p2022\casopractico2\main.cpp
 	<iostream>
