@@ -11,6 +11,7 @@ class menu
         void menus();
         void login();
         void menuGen();
+        void catalogos();
 
     protected:
 
